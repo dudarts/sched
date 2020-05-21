@@ -1,0 +1,32 @@
+<mat-toolbar class="menu mat-elevation-z2">
+    <mat-toolbar-row>
+        <div class="menu-title">
+            <a>
+                <img class="logo" src="assets/img/iatec_sched.png" alt="Logo Iatec Sched">
+                <span class="title-group v-middle">
+                    Agenda de Eventos
+                </span>
+            </a>
+        </div>        
+        <div class="menu-options">
+            <span class="v-midlle">Olá Dudarts</span>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                    <mat-icon>settings</mat-icon>
+                    <span>Perfil</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>fiber_new</mat-icon>
+                    <span>Novo Usuário</span>
+                </button>
+                <button mat-menu-item class="red">
+                    <mat-icon color="accent">exit_to_app</mat-icon>
+                    <span>Sair</span>
+                </button>
+            </mat-menu>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

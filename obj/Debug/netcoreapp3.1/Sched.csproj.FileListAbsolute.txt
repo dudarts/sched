@@ -55,3 +55,11 @@ F:\GoogleDrive\dev\IATec\Sched\obj\Debug\netcoreapp3.1\staticwebassets\Sched.Sta
 F:\GoogleDrive\dev\IATec\Sched\obj\Debug\netcoreapp3.1\Sched.dll
 F:\GoogleDrive\dev\IATec\Sched\obj\Debug\netcoreapp3.1\Sched.pdb
 F:\GoogleDrive\dev\IATec\Sched\obj\Debug\netcoreapp3.1\Sched.genruntimeconfig.cache
+F:\GoogleDrive\dev\IATec\Sched\bin\Debug\netcoreapp3.1\ClientApp\angular.json
+F:\GoogleDrive\dev\IATec\Sched\bin\Debug\netcoreapp3.1\ClientApp\e2e\tsconfig.json
+F:\GoogleDrive\dev\IATec\Sched\bin\Debug\netcoreapp3.1\ClientApp\package-lock.json
+F:\GoogleDrive\dev\IATec\Sched\bin\Debug\netcoreapp3.1\ClientApp\package.json
+F:\GoogleDrive\dev\IATec\Sched\bin\Debug\netcoreapp3.1\ClientApp\tsconfig.app.json
+F:\GoogleDrive\dev\IATec\Sched\bin\Debug\netcoreapp3.1\ClientApp\tsconfig.json
+F:\GoogleDrive\dev\IATec\Sched\bin\Debug\netcoreapp3.1\ClientApp\tsconfig.spec.json
+F:\GoogleDrive\dev\IATec\Sched\bin\Debug\netcoreapp3.1\ClientApp\tslint.json

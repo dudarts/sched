@@ -1,1 +1,65 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.menu {
+    display: flex;
+    align-items: center;    
+    color: #28629b;
+}
+
+.menu a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.menu .logo {
+    max-height: 32px;
+}
+
+.menu .title-group{
+    padding-left: 15px;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer .text-footer{
+    font-size: 60%;
+}
+
+.footer .text-footer i{
+    font-size: 100%; 
+}
+
+.v-middle {
+    vertical-align: middle;
+}
+
+.menu-title {
+    margin-right: auto;
+}
+
+.red {
+    color: red;
+}
+
+.red svg {
+    fill: red;
+}
+
+.mat-btn-basic {
+    background-color: white;
+}
+
+.menu-options {
+    margin-left: 20px;
+}
+
+
