@@ -16,6 +16,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
+import { MatCardModule } from '@angular/material/card';
+import { EventComponent } from './components/event/event.component';
+import { UserComponent } from './components/user/user.component';
+import { UserCreateComponent } from './components/user/user-create/user-create.component';
 
 
 @NgModule({
@@ -24,8 +28,10 @@ import { HomeComponent } from './components/home/home.component';
     MenuComponent,
     FooterComponent,
     NavComponent,
-    HomeComponent
-
+    HomeComponent,
+    EventComponent,
+    UserComponent,
+    UserCreateComponent,    
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,8 @@ import { HomeComponent } from './components/home/home.component';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

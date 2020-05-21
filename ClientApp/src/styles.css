@@ -62,4 +62,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-left: 20px;
 }
 
+.content {
+    padding: 10px;
+    background-color: white;
+}
 
+.home .title {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.home .subtitle {
+    font-size: 1.1rem;
+}
