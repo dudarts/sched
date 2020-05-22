@@ -1,9 +1,10 @@
-.menu {
-  
+.menu { 
     display: flex;
     justify-content: flex-start;
     align-items: center;    
     color: #28629b;
+    position: fixed;
+    top: 0px;
 }
 
 .menu a{
