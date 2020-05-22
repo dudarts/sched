@@ -1,0 +1,29 @@
+.menu {
+  
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;    
+    color: #28629b;
+}
+
+.menu a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.menu .logo {
+    max-height: 32px;
+}
+
+.menu .title-group{
+    padding-left: 15px;
+}
+
+.menu-title {
+    margin-right: auto;
+}
+
+.menu-options {
+    margin-left: 20px;
+}

@@ -27,9 +27,10 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSelectModule} from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table'
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import {MatSelectModule} from '@angular/material/select';
     EventComponent,
     UserComponent,
     UserCreateComponent,
-    LoginComponent,    
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,9 +65,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule
   ],
-  providers: [[{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]],
+  providers: [[{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

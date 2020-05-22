@@ -11,3 +11,15 @@
 .sidenav a {
     color: white;
 }
+
+.content{
+    padding: 5px;
+    background-color: yellow;
+    
+    /* overflow-y: auto; */
+}
+
+.conteiner {
+    /* display: inline-flex; */
+    height: 50%;
+}

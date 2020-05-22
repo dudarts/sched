@@ -30,36 +30,20 @@ export class UserCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.formUser = new FormGroup({
-      // name: new FormControl(''),
-      // email: new FormControl(''),
-      // password: new FormControl('', [Validators.required]),
-      // birthDate: new FormControl(''),
-      // gender: new FormControl('')
-
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
+      passwordConfirm: new FormControl('', [Validators.required]),
       birthDate: new FormControl('', [Validators.required]),
       gender: new FormControl('', [Validators.required])
     })
   }
 
+  
+
   submit() {  
     if (this.formUser.valid) {
-      // console.log(this.formUser.value)
-      this.userService.showMessage("Chegou aqui")
-      // const email = this.formUser.value.email
-      // const password = this.formUser.value.password
-      // const name = this.formUser.value.name
-      // const birthDate = this.formUser.value.birthDate
-      // const gender = this.formUser.value.gender
-
-      // this.user.name = name;
-      // this.user.email = email;
-      // this.user.password = password;
-      // this.user.birthDate = birthDate;
-      // this.user.gender = gender;
-
+      //this.userService.showMessage("Chegou aqui")
       this.createUser();
     } else {
       console.log('invalid')
