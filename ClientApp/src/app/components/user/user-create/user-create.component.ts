@@ -22,7 +22,8 @@ export class UserCreateComponent implements OnInit {
   hide = true;
 
   constructor(private userService: UserService,
-    private router: Router) {
+    private router: Router,
+    ) {
       
      }
 
@@ -33,7 +34,7 @@ export class UserCreateComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      passwordConfirm: new FormControl('', [Validators.required]),
+      //passwordConfirm: new FormControl('', [Validators.required]),
       birthDate: new FormControl('', [Validators.required]),
       gender: new FormControl('', [Validators.required])
     })

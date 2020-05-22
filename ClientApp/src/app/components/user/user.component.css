@@ -4,5 +4,32 @@ table {
 
 .mat-form-field {
   font-size: 14px;
-  /* width: 100%; */
+  width: 100%;
+}
+
+.div-mat-card-title {
+  display: flex;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.div-actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+a {
+  color: #28629B;
+  text-decoration: none;
+}
+
+.red {
+  color: red;
+}
+
+a mat-icon {
+  margin: 0 10px;
 }

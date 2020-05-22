@@ -1,3 +1,4 @@
+import { UserUpdateComponent } from './components/user/user-update/user-update.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -24,7 +25,7 @@ const routes: Routes = [
         path: "user/create", component: UserCreateComponent
       },
       {
-        path: "user/create", component: UserCreateComponent
+        path: "user/update/:id", component: UserUpdateComponent
       },
       {
         path: "event", component: EventComponent

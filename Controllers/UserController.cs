@@ -24,7 +24,7 @@ namespace Sched.Controllers
         }
 
         [HttpGet]
-        [Route("{int=id}")]
+        [Route("{id:int}")]
         public async Task<ActionResult<User>> GetById([FromServices] DataContext context, int id)
         {
             var users = await context.Users
@@ -43,6 +43,24 @@ namespace Sched.Controllers
                 //model.Password = model.Password.GetHashCode().ToString();
                 model.Password = Cripto.md5(model.Password);
                 context.Users.Add(model);
+                await context.SaveChangesAsync();
+                return model;
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<ActionResult<User>> Put([FromServices] DataContext context, [FromBody] User model)
+        {
+            if (ModelState.IsValid)
+            {               
+                //model.Password = model.Password.GetHashCode().ToString();
+                model.Password = Cripto.md5(model.Password);
+                context.Users.Update(model);
                 await context.SaveChangesAsync();
                 return model;
             }

@@ -76,8 +76,21 @@ export class AuthService {
     
   }
 
+  getId() {
+    if (!this.tokenIsValid()) return ''
+    
+    let jwt = this.getToken()
+
+    let jwtData = jwt.split('.')[1]
+    let decodedJwtJsonData = window.atob(jwtData)// btoa base64
+    let decodedJwtData = JSON.parse(decodedJwtJsonData)
+
+    let id = decodedJwtData.subject
+    return id
+    
+  }
+
   logout(){
-    this.showMessage("Oxe oxe oxe")
     this.clearToken();
     this.router.navigate(["login"]);
   }

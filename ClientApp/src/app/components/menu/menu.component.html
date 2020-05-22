@@ -14,11 +14,11 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <a mat-menu-item routerLink="/user">
+                <a mat-menu-item routerLink="/home/user/update/{{ getIdLogin() }}">
                     <mat-icon >settings</mat-icon>
                     <span>Perfil</span>
                 </a>
-                <a mat-menu-item routerLink="/user/create">
+                <a mat-menu-item routerLink="/home/user/create">
                     <mat-icon>fiber_new</mat-icon>
                     <span>Novo Usuário</span>
                 </a>

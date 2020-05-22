@@ -18,6 +18,10 @@ export class MenuComponent implements OnInit {
     return this.auth.getName()
   }
 
+  getIdLogin(){
+    return this.auth.getId()
+  }
+
   logout(){
     this.auth.logout()
   }

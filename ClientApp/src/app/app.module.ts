@@ -1,3 +1,4 @@
+import { UserUpdateComponent } from './components/user/user-update/user-update.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -44,6 +45,7 @@ import { MatTableModule } from '@angular/material/table'
     UserComponent,
     UserCreateComponent,
     LoginComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,

@@ -33,4 +33,12 @@ export class UserService {
   getAll(): Observable<User[]>{
     return this.http.get<User[]>("http://localhost:5000/api/users");
   }
+  
+  getById(id : string): Observable<User>{
+    return this.http.get<User>(`http://localhost:5000/api/users/${id}`);
+  }
+
+  update(user : User): Observable<User>{
+    return this.http.put<User>(`http://localhost:5000/api/users`, user);
+  }
 }

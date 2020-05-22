@@ -42,32 +42,18 @@
             </mat-select>
         </mat-form-field>
 
-        <!-- <mat-form-field>
-            <input matInput placeholder="Digite o e-mail" [(ngModel)]="user.email" [formControlName]="'email'"
-                type="email">
-        </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Digite a senha" [(ngModel)]="user.password" [formControlName]="'password'"
-                type="password">
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput placeholder="Confirme sua senha" [formControlName]="'confirmPassword'" type="passaword">
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput [(ngModel)]="user.birthDate" [formControlName]="'birthDate'" type="date">
-        </mat-form-field> -->
-
-        <!-- <mat-form-field>
-            <mat-radio-group aria-label="Select an option">
-                <mat-radio-button  [formControlName]="'gender'" value="M">Masculino</mat-radio-button>
-                <mat-radio-button [formControlName]="'gender'" value="F">Feminino</mat-radio-button>
-            </mat-radio-group>
-        </mat-form-field> -->
-        <button mat-raised-button [disabled]="!formUser.valid" type="submit" color="primary"
-            (click)="submit()">Salvar</button>
+        <div class="div-mat-card-title">
+        <div class="mr-auto">
+            <button mat-raised-button [disabled]="!formUser.valid" type="submit" color="primary"
+            (click)="submit()">
+            Salvar
+        </button>
+        </div>
+        <button mat-raised-button (click)="cancel()" color="">
+            Cancelar
+        </button>
+        </div>
     </form>
 
     <!-- 
