@@ -1,10 +1,77 @@
-<p>user-create works!</p>
+<mat-card>
+    <mat-card-title>
 
-<button mat-raised-button (click)="createUser()" color="primary">
-    Salvar
-</button>
+    </mat-card-title>
+    <form [formGroup]="formUser">
+        <!-- <mat-form-field>
+            <input matInput placeholder="Digite o nome" [(ngModel)]="user.name" [formControlName]="'name'" type="text">
+        </mat-form-field> -->
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+            <mat-label>Digite seu Nome</mat-label>
+            <input matInput placeholder="E-mail do usuário" [(ngModel)]="user.name" [formControlName]="'name'"
+                type="text">
+        </mat-form-field>
 
-<button mat-raised-button (click)="cancel()">
-    Cancelar
-</button>
- 
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+            <mat-label>Digite seu E-mail</mat-label>
+            <input matInput placeholder="E-mail do usuário" [(ngModel)]="user.email" [formControlName]="'email'"
+                type="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControlName]="'password'" [(ngModel)]="user.password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput placeholder="E-mail do usuário" [(ngModel)]="user.birthDate" [formControlName]="'birthDate'"
+                type="date">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+            <mat-label>Escolha um Gênero</mat-label>
+            <mat-select [(ngModel)]="user.gender" [formControlName]="'gender'">
+                <mat-option value="F">Feminino</mat-option>
+                <mat-option value="M">Masculino</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+            <input matInput placeholder="Digite o e-mail" [(ngModel)]="user.email" [formControlName]="'email'"
+                type="email">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Digite a senha" [(ngModel)]="user.password" [formControlName]="'password'"
+                type="password">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Confirme sua senha" [formControlName]="'confirmPassword'" type="passaword">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput [(ngModel)]="user.birthDate" [formControlName]="'birthDate'" type="date">
+        </mat-form-field> -->
+
+        <!-- <mat-form-field>
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button  [formControlName]="'gender'" value="M">Masculino</mat-radio-button>
+                <mat-radio-button [formControlName]="'gender'" value="F">Feminino</mat-radio-button>
+            </mat-radio-group>
+        </mat-form-field> -->
+        <button mat-raised-button [disabled]="!formUser.valid" type="submit" color="primary"
+            (click)="submit()">Salvar</button>
+    </form>
+
+
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
+
+</mat-card>

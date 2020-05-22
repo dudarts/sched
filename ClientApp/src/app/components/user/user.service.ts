@@ -27,6 +27,6 @@ export class UserService {
   }
 
   create(user: User): Observable<User> {
-    return this.http.post<User>("http://localhost:5000/api/users/", user);
+    return this.http.post<User>("http://localhost:5000/api/users", user);
   }
 }
