@@ -20,6 +20,11 @@ import { MatCardModule } from '@angular/material/card';
 import { EventComponent } from './components/event/event.component';
 import { UserComponent } from './components/user/user.component';
 import { UserCreateComponent } from './components/user/user-create/user-create.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,7 +36,8 @@ import { UserCreateComponent } from './components/user/user-create/user-create.c
     HomeComponent,
     EventComponent,
     UserComponent,
-    UserCreateComponent,    
+    UserCreateComponent,
+    LoginComponent,    
   ],
   imports: [
     BrowserModule,
@@ -44,9 +50,13 @@ import { UserCreateComponent } from './components/user/user-create/user-create.c
     MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [[{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

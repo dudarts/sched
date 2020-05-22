@@ -5,11 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Sched.Model;
 using Sched.Data;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Sched.Controllers
 {
     [ApiController]
     [Route("api/Event")]
+    [Authorize(Roles = "user")]
     public class EventController : ControllerBase
     {
         [HttpGet]

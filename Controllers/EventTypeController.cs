@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sched.Model;
 using Sched.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Sched.Controllers
 {
     [ApiController]
     [Route("api/EventType")]
+    [Authorize(Roles = "user")]
     public class EventTypeController : ControllerBase
     {
         [HttpGet]

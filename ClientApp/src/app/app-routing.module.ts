@@ -1,3 +1,4 @@
+import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -8,17 +9,26 @@ import { UserCreateComponent } from './components/user/user-create/user-create.c
 
 const routes: Routes = [
   {
-    path: "", component: HomeComponent
+    path: "", redirectTo: 'login', pathMatch: "full"
   },
   {
-    path: "user", component: UserComponent
+    path: "login", component: LoginComponent
   },
   {
-    path: "user/create", component: UserCreateComponent
-  },
-  {
-    path: "event", component: EventComponent
+    path: "home", component: HomeComponent,
+    children: [
+      {
+        path: "user", component: UserComponent
+      },
+      {
+        path: "user/create", component: UserCreateComponent
+      },
+      {
+        path: "event", component: EventComponent
+      }
+    ]
   }
+
 ];
 
 @NgModule({

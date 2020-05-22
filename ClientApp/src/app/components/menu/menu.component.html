@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class="menu-options">
-            <span class="v-midlle">Olá Dudarts</span>
+            <span class="v-midlle">Olá {{ getNameLogin() }}</span>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
@@ -22,7 +22,7 @@
                     <mat-icon>fiber_new</mat-icon>
                     <span>Novo Usuário</span>
                 </a>
-                <a mat-menu-item class="red">
+                <a mat-menu-item class="red" (click)="logout()">
                     <mat-icon color="accent">exit_to_app</mat-icon>
                     <span>Sair</span>
                 </a>
