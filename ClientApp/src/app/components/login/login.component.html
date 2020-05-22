@@ -1,11 +1,28 @@
-<form [formGroup]="myForm" (ngSubmit)="submit()">
-    <span>E-mail</span>
-    <input [formControlName]="'email'" type="email">
+<div class="general">
+    <div class="container">
+        <form [formGroup]="myForm" (click)="submit()">
+            <mat-card>
+                <mat-card-content>
+                    <img mat-card-image class="logo-login" src="assets/img/iatec_sched.jpg" alt="Logo IATec Sched">
 
-    <span>Senha</span>
-    <input [formControlName]="'password'" type="password">
+                    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+                        <mat-label>Digite seu e-mail</mat-label>
+                        <input matInput placeholder="E-mail do usuário" [formControlName]="'email'" type="email">
+                    </mat-form-field>
 
-    <input [disabled]="!myForm.valid" type="submit" value="Entrar">
-
-    {{ myForm.value | json }}
-</form>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" [formControlName]="'password'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <button class="btn-submit-login" mat-raised-button [disabled]="!myForm.valid" type="submit" color="primary">Entrar</button>
+                </mat-card-content>
+            </mat-card>
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>
+<!-- {{ myForm.value | json }} -->

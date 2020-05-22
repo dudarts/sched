@@ -6,6 +6,7 @@ using Sched.Model;
 using Sched.Data;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography;
 
 namespace Sched.Controllers
 {
@@ -38,7 +39,9 @@ namespace Sched.Controllers
         public async Task<ActionResult<User>> Post([FromServices] DataContext context, [FromBody] User model)
         {
             if (ModelState.IsValid)
-            {
+            {               
+                //model.Password = model.Password.GetHashCode().ToString();
+                model.Password = Cripto.md5(model.Password);
                 context.Users.Add(model);
                 await context.SaveChangesAsync();
                 return model;

@@ -11,9 +11,9 @@ import { User } from '../user.model';
 export class UserCreateComponent implements OnInit {
 
   user: User = {
-    name: "Pedro",
-    email: "pedro@msn.com",
-    password: "321321",
+    name: "Dalila",
+    email: "lila@msn.com",
+    password: "123",
     birthDate: new Date("2017-03-30"),
     gender: "M"
   }
