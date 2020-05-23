@@ -11,30 +11,6 @@ import { User } from '../user.model';
 })
 export class UserUpdateComponent implements OnInit {
 
-  constructor(private userService: UserService,
-    private router: Router,
-    private route: ActivatedRoute) { }
-
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id')
-    this.userService.getById(id).subscribe(
-      user => {
-        this.user = user
-      });
-
-    //console.log(this.user)
-
-    this.formUser = new FormGroup({
-      id: new FormControl(this.user.id, [Validators.required]),
-      name: new FormControl(this.user.name, [Validators.required]),
-      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-      //passwordConfirm: new FormControl('', [Validators.required]),
-      birthDate: new FormControl('', [Validators.required]),
-      gender: new FormControl('', [Validators.required])
-    })
-  }
-
   formUser: FormGroup
   floatLabelControl = new FormControl('auto');
   hide = true;
@@ -46,25 +22,47 @@ export class UserUpdateComponent implements OnInit {
     gender: ""
   }
 
+  constructor(private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id')
+    this.userService.getById(id).subscribe(
+      user => {
+        user.password = ""
+        this.user = user
+      });
+
+    this.formUser = new FormGroup({
+      id: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      //passwordConfirm: new FormControl('', [Validators.required]),
+      birthDate: new FormControl('', [Validators.required]),
+      gender: new FormControl('', [Validators.required])
+    })
+  }
 
   submit() {
     if (this.formUser.valid) {
       //this.userService.showMessage("Chegou aqui")
-      this.createUser();
+      this.updateUser();
     } else {
       console.log('invalid')
     }
   }
 
-  createUser(): void {
+  updateUser(): void {
     this.userService.update(this.user).subscribe(
       () => {
-        this.userService.showMessage("Usuário cadastrado com sucesso")
+        this.userService.showMessage("Usuário atualizado com sucesso")
         this.router.navigate(['/home/user'])
       },
       (error: any) => {
         this.userService.showMessage("Deu zica");
-        console.error('Observer got an error: ' + error);
+        console.error('Erro: ' + error);
       }
     )
   }

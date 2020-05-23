@@ -31,8 +31,7 @@
 
       <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
         <mat-label>Data de Nascimento</mat-label>
-        <input matInput placeholder="E-mail do usuário" [(ngModel)]="user.birthDate" [formControlName]="'birthDate'"
-          type="date">
+        <input matInput [ngModel]="user.birthDate | date:'yyyy-MM-dd'" [formControlName]="'birthDate'" type="date">
       </mat-form-field>
 
       <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
