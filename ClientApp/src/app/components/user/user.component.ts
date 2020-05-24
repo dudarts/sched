@@ -1,8 +1,9 @@
 import { User } from './user.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogModule, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 
 // export interface PeriodicElement {
 //   name: string;
@@ -36,11 +37,14 @@ export class UserComponent implements OnInit {
   users: User[];
   displayedColumns: string[] = ['id', 'name', 'email', 'gender', 'action'];
   dataSource = new MatTableDataSource();
-  
 
-  constructor(private router: Router, private userService: UserService) { }
 
-  
+  constructor(private router: Router,
+    private userService: UserService,
+    private dialog: MatDialog,
+    private changeDetectorRefs: ChangeDetectorRef) { }
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -58,10 +62,44 @@ export class UserComponent implements OnInit {
         this.userService.showMessage("Deu zica de novo");
         console.error('Observer got an error: ' + error);
       }
+    this.refresh();
   }
 
   toUserCreate(): void {
     this.router.navigate(['/home/user/create'])
   }
 
+  confirmDelete(id: any) {
+    const dialogRef = this.dialog.open(UserDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.delete(id).subscribe(
+          () => {
+            this.userService.showMessage("Usuário excluído com sucesso")
+            this.ngOnInit()
+          },
+          (error: any) => {
+            this.userService.showMessage("Deu zica");
+            console.error('Erro: ' + error);
+          }
+        )
+      } else {
+        this.userService.showMessage("Ação cancelada")
+      }
+    });
+  }
+
+  refresh() {
+    this.changeDetectorRefs.detectChanges();
+  }
+
 }
+
+@Component({
+  selector: 'user-dialog-delete',
+  templateUrl: 'user-dialog-delete.html',
+  styleUrls: ['./user.component.css']
+})
+
+export class UserDialog { }

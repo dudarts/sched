@@ -69,5 +69,24 @@ namespace Sched.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<ActionResult<User>> Delete([FromServices] DataContext context, int id)
+        {
+            if (ModelState.IsValid)
+            {                              
+                var users = await context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+                context.Users.Remove(users);
+                await context.SaveChangesAsync();
+                return users;
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
     }
 }

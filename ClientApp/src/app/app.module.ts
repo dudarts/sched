@@ -19,7 +19,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { EventComponent } from './components/event/event.component';
-import { UserComponent } from './components/user/user.component';
+import { UserComponent, UserDialog } from './components/user/user.component';
 import { UserCreateComponent } from './components/user/user-create/user-create.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -31,8 +31,8 @@ import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table'
-
+import { MatTableModule } from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import { MatTableModule } from '@angular/material/table'
     UserComponent,
     UserCreateComponent,
     LoginComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    UserDialog
   ],
   imports: [
     BrowserModule,
@@ -68,7 +69,12 @@ import { MatTableModule } from '@angular/material/table'
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    UserComponent,
+    UserDialog
   ],
   providers: [[{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]],
   bootstrap: [AppComponent]

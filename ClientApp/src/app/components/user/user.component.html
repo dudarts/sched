@@ -43,8 +43,8 @@
             <a routerLink="/home/user/update/{{ element.id }}" title="Editar">
               <mat-icon>edit</mat-icon>
             </a>
-            <a class="red" routerLink="/home/event" title="Desativar">
-              <mat-icon>delete</mat-icon>
+            <a class="red" (click)="confirmDelete(element.id)" title="Desativar">
+              <mat-icon class="pointer">delete</mat-icon>
             </a>
           </div>
         </td>

@@ -33,3 +33,11 @@ a {
 a mat-icon {
   margin: 0 10px;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.block {
+  display: block;
+}
