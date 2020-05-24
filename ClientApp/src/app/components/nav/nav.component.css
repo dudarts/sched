@@ -24,6 +24,7 @@
     position: fixed;
     top: 64px;
     padding: 1px;
+    margin: 5px;
     width: calc(100% - 260px);
     height: calc(100% - 128px);
     overflow: auto;

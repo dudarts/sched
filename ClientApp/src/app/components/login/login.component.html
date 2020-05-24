@@ -1,6 +1,6 @@
 <div class="general">
     <div class="container">
-        <form [formGroup]="myForm" (click)="submit()">
+        <form [formGroup]="myForm" >
             <mat-card>
                 <mat-card-content>
                     <img mat-card-image class="logo-login" src="assets/img/iatec_sched.jpg" alt="Logo IATec Sched">
@@ -18,7 +18,7 @@
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                     </mat-form-field>
-                    <button class="btn-submit-login" mat-raised-button [disabled]="!myForm.valid" type="submit" color="primary">Entrar</button>
+                    <button class="btn-submit-login" mat-raised-button [disabled]="!myForm.valid" type="submit" color="primary" (click)="submit()">Entrar</button>
                 </mat-card-content>
             </mat-card>
         </form>
