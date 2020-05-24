@@ -25,9 +25,10 @@ mat-form-field {
 }
 
 .logo-login {
-    width: 250px;
+    width: 180px;
     display: flex;
     margin: auto;
+    margin-bottom: 50px;
 }
 
 .btn-submit-login{

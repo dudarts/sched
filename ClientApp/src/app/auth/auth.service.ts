@@ -86,8 +86,7 @@ export class AuthService {
     let decodedJwtData = JSON.parse(decodedJwtJsonData)
 
     let id = decodedJwtData.subject
-    return id
-    
+    return id  
   }
 
   logout(){

@@ -1,8 +1,11 @@
+import { UserEvent } from './../userEvent.model';
 import { EventsService } from './../event.service';
 import { Events } from './../event.model';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-event-create',
@@ -19,6 +22,12 @@ export class EventCreateComponent implements OnInit {
     date: null,
     eventTypeId: null
   }
+
+  userEvent: UserEvent = {
+    userId: null,
+    eventId: null
+  }
+
   floatLabelControl = new FormControl('auto');
   hide = true;
   formEvent: FormGroup
@@ -26,6 +35,7 @@ export class EventCreateComponent implements OnInit {
 
   constructor(private eventService: EventsService,
     private router: Router,
+    private auth: AuthService
   ) {
 
   }
@@ -47,16 +57,29 @@ export class EventCreateComponent implements OnInit {
   submit() {
     if (this.formEvent.valid) {
       //this.userService.showMessage("Chegou aqui")
-      this.createUser();
+      this.createEvent();
     } else {
       console.log('invalid')
     }
   }
 
-  createUser(): void {
+  createEvent(): void {
     console.log(this.events)
     this.eventService.create(this.events).subscribe(
-      () => {
+      (ue) => {
+        let userId = this.auth.getId()
+        let eventId = ue.id;
+
+        this.userEvent.userId = +userId;
+        this.userEvent.eventId = eventId;
+        
+        this.eventService.saveUserInEvent(this.userEvent)
+          .toPromise().then()
+          .catch((e: HttpErrorResponse) => {
+            console.log(this.userEvent)
+            this.eventService.showMessage(e.message)
+          });
+
         this.eventService.showMessage("Evento cadastrado com sucesso")
         this.router.navigate(['/home/event'])
       },

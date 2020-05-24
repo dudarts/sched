@@ -23,8 +23,8 @@ namespace Sched.Controllers
         }
 
         [HttpGet]
-        [Route("Event/{eventId=int}/User/{userId=int}")]
-        public async Task<ActionResult<UsersEvents>> Get([FromServices] DataContext context, int eventId, int userId)
+        [Route("userId/{userId:int}/eventId/{eventId:int}")]
+        public async Task<ActionResult<UsersEvents>> Get([FromServices] DataContext context, int userId, int eventId)
         {
             var usersEvents = await context.UsersEvents
                 .AsNoTracking()
@@ -44,6 +44,25 @@ namespace Sched.Controllers
                 return model;
             } 
             else 
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpDelete]
+        [Route("userId/{userId:int}/eventId/{eventId:int}")]
+        public async Task<ActionResult<UsersEvents>> Delete([FromServices] DataContext context, int userId, int eventId)
+        {
+            if (ModelState.IsValid)
+            {                              
+                var usersEvents = await context.UsersEvents
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.EventId == eventId);
+                context.UsersEvents.Remove(usersEvents);
+                await context.SaveChangesAsync();
+                return usersEvents;
+            }
+            else
             {
                 return BadRequest(ModelState);
             }

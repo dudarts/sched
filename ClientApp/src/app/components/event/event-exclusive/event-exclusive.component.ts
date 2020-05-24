@@ -1,18 +1,19 @@
-import { AuthService } from './../../auth/auth.service';
-import { UserEvent } from './userEvent.model';
-import { EventsService } from './event.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Events } from './event.model';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Events } from '../event.model';
+import { UserEvent } from '../userEvent.model';
+import { EventsService } from '../event.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css'],
+  selector: 'app-event-exclusive',
+  templateUrl: './event-exclusive.component.html',
+  styleUrls: ['./event-exclusive.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -21,15 +22,12 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class EventComponent implements OnInit {
+export class EventExclusiveComponent implements OnInit {
 
   eventsExclusive: Events[];
-  eventsShared: Events[];
   // displayedColumns: string[] = ['id', 'name', 'description', 'date', 'local', 'type'];
   displayedColumnsExclusive: string[] = ['name', 'date', 'action'];
-  displayedColumnsShared: string[] = ['name', 'date', 'action'];
   dataSourceExclusive = new MatTableDataSource();
-  dataSourceShared = new MatTableDataSource();
   expandedElement: Events | null;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   arrow: Events | null;
@@ -47,11 +45,6 @@ export class EventComponent implements OnInit {
     this.dataSourceExclusive.filter = filterValueExclusive.trim().toLowerCase();
   }
 
-  applyFilteShared(event: Event) {
-    const filterValueShared = (event.target as HTMLInputElement).value;
-    this.dataSourceShared.filter = filterValueShared.trim().toLowerCase();
-  }
-
   ngOnInit(): void {
     this.eventService.getByType("1").subscribe(eventsExclusive => {
       this.eventsExclusive = eventsExclusive
@@ -64,17 +57,6 @@ export class EventComponent implements OnInit {
         console.error('Observer got an error: ' + error);
       }
 
-
-    this.eventService.getByType("2").subscribe(eventsShared => {
-      this.eventsShared = eventsShared
-      this.dataSourceShared = new MatTableDataSource(this.eventsShared);
-      this.dataSourceShared.sort = this.sort;
-    }
-    ),
-      (error: any) => {
-        this.eventService.showMessage("Deu zica de novo");
-        console.error('Observer got an error: ' + error);
-      }
       this.idLogin = this.auth.getId();
   }
 
@@ -100,10 +82,8 @@ export class EventComponent implements OnInit {
     return this.auth.getName;
   }
 
-
-
   confirmDelete(id: any) {
-    const dialogRef = this.dialog.open(EventDialog);
+    const dialogRef = this.dialog.open(EventExclusiveDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -122,14 +102,12 @@ export class EventComponent implements OnInit {
       }
     });
   }
-
 }
 
-
 @Component({
-  selector: 'event-dialog-delete',
-  templateUrl: 'event-dialog-delete.html',
-  styleUrls: ['./event.component.css']
+  selector: 'event-exclusive-dialog-delete',
+  templateUrl: 'event-exclusive-dialog-delete.html',
+  styleUrls: ['./event-exclusive.component.css']
 })
 
-export class EventDialog { }
+export class EventExclusiveDialog { }

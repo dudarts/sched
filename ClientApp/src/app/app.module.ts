@@ -1,3 +1,5 @@
+import { EventSharedComponent, EventSharedDialog } from './components/event/event-shared/event-shared.component';
+import { EventExclusiveComponent, EventExclusiveDialog } from './components/event/event-exclusive/event-exclusive.component';
 import { EventUpdateComponent } from './components/event/event-update/event-update.component';
 import { EventCreateComponent } from './components/event/event-create/event-create.component';
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
@@ -39,6 +41,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -54,9 +57,13 @@ import { MatNativeDateModule } from '@angular/material/core';
     LoginComponent,
     UserUpdateComponent,
     UserDialog,
-    EventDialog,
     EventCreateComponent,
-    EventUpdateComponent
+    EventUpdateComponent,
+    EventExclusiveComponent,
+    EventSharedComponent,
+    EventDialog,
+    EventExclusiveDialog,
+    EventSharedDialog
   ],
   imports: [
     BrowserModule,
@@ -84,13 +91,18 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSortModule,
     MatGridListModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSlideToggleModule
   ],
   entryComponents: [
     UserComponent,
     UserDialog,
     EventComponent,
-    EventDialog
+    EventDialog,
+    EventSharedComponent,
+    EventExclusiveComponent,
+    EventExclusiveDialog,
+    EventSharedDialog
   ],
   providers: [[{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]],
   bootstrap: [AppComponent]
