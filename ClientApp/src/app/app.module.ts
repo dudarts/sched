@@ -1,3 +1,5 @@
+import { EventUpdateComponent } from './components/event/event-update/event-update.component';
+import { EvenCreateComponent } from './components/event/even-create/even-create.component';
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -18,7 +20,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { MatCardModule } from '@angular/material/card';
-import { EventComponent } from './components/event/event.component';
+import { EventComponent, EventDialog } from './components/event/event.component';
 import { UserComponent, UserDialog } from './components/user/user.component';
 import { UserCreateComponent } from './components/user/user-create/user-create.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -34,6 +36,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { MatSortModule } from '@angular/material/sort';
     UserCreateComponent,
     LoginComponent,
     UserUpdateComponent,
-    UserDialog
+    UserDialog,
+    EventDialog,
+    EvenCreateComponent,
+    EventUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -72,11 +78,14 @@ import { MatSortModule } from '@angular/material/sort';
     MatSelectModule,
     MatTableModule,
     MatDialogModule,
-    MatSortModule
+    MatSortModule,
+    MatGridListModule
   ],
   entryComponents: [
     UserComponent,
-    UserDialog
+    UserDialog,
+    EventComponent,
+    EventDialog
   ],
   providers: [[{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]],
   bootstrap: [AppComponent]
