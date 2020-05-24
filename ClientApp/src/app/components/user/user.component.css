@@ -41,3 +41,7 @@ a mat-icon {
 .block {
   display: block;
 }
+
+th.mat-sort-header-sorted {
+  color: black;
+}
