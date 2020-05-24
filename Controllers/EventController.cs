@@ -44,17 +44,17 @@ namespace Sched.Controllers
             return events;
         }
 
-        [HttpGet]
-        [Route("{name}")]
-        public async Task<ActionResult<List<Event>>> GetByName([FromServices] DataContext context, string name)
-        {
-            var events = await context.Events
-                .Include(x => x.EventType)
-                .AsNoTracking()
-                .Where(x => x.Name.Contains(name))
-                .ToListAsync();
-            return events;
-        }
+        // [HttpGet]
+        // [Route("{name}")]
+        // public async Task<ActionResult<List<Event>>> GetByName([FromServices] DataContext context, string name)
+        // {
+        //     var events = await context.Events
+        //         .Include(x => x.EventType)
+        //         .AsNoTracking()
+        //         .Where(x => x.Name.Contains(name))
+        //         .ToListAsync();
+        //     return events;
+        // }
  
         [HttpPost]
         [Route("")]
@@ -67,6 +67,43 @@ namespace Sched.Controllers
                 return model;
             } 
             else 
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<ActionResult<Event>> Put([FromServices] DataContext context, [FromBody] Event model)
+        {
+            if (ModelState.IsValid)
+            {               
+                //model.Password = model.Password.GetHashCode().ToString();
+                
+                context.Events.Update(model);
+                await context.SaveChangesAsync();
+                return model;
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<ActionResult<Event>> Delete([FromServices] DataContext context, int id)
+        {
+            if (ModelState.IsValid)
+            {                              
+                var events = await context.Events
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+                context.Events.Remove(events);
+                await context.SaveChangesAsync();
+                return events;
+            }
+            else
             {
                 return BadRequest(ModelState);
             }
