@@ -3,8 +3,9 @@ export interface Events {
     name: string
     description: string
     local: string
+    date: Date
     eventTypeId : number
-    eventType: {
+    eventType?: {
         id: number
         description: string
     }

@@ -18,18 +18,20 @@
             <mat-card-title>
                 <div class="div-mat-card-title">
                     <div class="sub-title">
-                        <mat-icon class="v-middle">lock</mat-icon>Compartilhados
+                        <mat-icon class="v-middle">lock</mat-icon>Exclusivos
                     </div>
                 </div>
             </mat-card-title>
             <mat-card-content>
                 <mat-form-field>
                     <mat-label>Filtrar</mat-label>
-                    <input class="input-filter" matInput (keyup)="applyFilterExclusive($event)" placeholder="Ao filtar pela data use ano-mes-dia. Ex: 2020-05-25">
+                    <input class="input-filter" matInput (keyup)="applyFilterExclusive($event)"
+                        placeholder="Ao filtar pela data use ano-mes-dia. Ex: 2020-05-25">
                 </mat-form-field>
                 <div class="table-container">
                     <table matSort mat-table multiTemplateDataRows [dataSource]="dataSourceExclusive"
-                        class="mat-elevation-z8">
+                        class="mat-elevation-z8"  
+                        matSortActive="date" matSortDirection="asc" matSortDisableClear>
 
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Evento </th>
@@ -114,11 +116,12 @@
             <mat-card-content>
                 <mat-form-field>
                     <mat-label>Filtrar</mat-label>
-                    <input class="input-filter" matInput (keyup)="applyFilteShared($event)" placeholder="Ao filtar pela data use ano-mes-dia. Ex: 2020-05-25">
+                    <input class="input-filter" matInput (keyup)="applyFilteShared($event)"
+                        placeholder="Ao filtar pela data use ano-mes-dia. Ex: 2020-05-25">
                 </mat-form-field>
                 <div class="table-container">
                     <table matSort mat-table multiTemplateDataRows [dataSource]="dataSourceShared"
-                        class="mat-elevation-z8">
+                        class="mat-elevation-z8" matSortActive="date" matSortDirection="asc" matSortDisableClear>
 
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Evento </th>
@@ -173,6 +176,11 @@
                                     </a>
                                     <a class="red" (click)="confirmDelete(element.id)" title="Desativar">
                                         <mat-icon class="pointer">delete</mat-icon>
+                                    </a>
+                                    <a title="Desativar">
+                                        <small>
+                                            <mat-icon class="pointer" title="Participar do Evento">group_add</mat-icon>
+                                        </small>
                                     </a>
                                 </div>
                             </td>

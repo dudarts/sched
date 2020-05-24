@@ -8,7 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
 import { EventComponent } from './components/event/event.component';
 import { UserCreateComponent } from './components/user/user-create/user-create.component';
-import { EvenCreateComponent } from './components/event/even-create/even-create.component';
+import { EventCreateComponent } from './components/event/event-create/event-create.component';
 
 const routes: Routes = [
   {
@@ -33,7 +33,7 @@ const routes: Routes = [
         path: "event", component: EventComponent
       },
       {
-        path: "event/create", component: EvenCreateComponent
+        path: "event/create", component: EventCreateComponent
       },
       {
         path: "event/update/:id", component: EventUpdateComponent

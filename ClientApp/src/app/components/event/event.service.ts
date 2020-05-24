@@ -10,8 +10,6 @@ import { Events } from './event.model';
 })
 export class EventsService {
 
-  url = environment.urlbase;
-
 
   constructor(private snackBar: MatSnackBar,
     private http: HttpClient
@@ -35,6 +33,10 @@ export class EventsService {
   
   getById(id : string): Observable<Events>{
     return this.http.get<Events>(`http://localhost:5000/api/event/${id}`);
+  }
+
+  getByDateAndType(ano : string, mes : string, dia : string, typeId : string ): Observable<Events>{
+    return this.http.get<Events>(`http://localhost:5000/api/event/${ano}/${mes}/${dia}/${typeId}`);
   }
 
   getByType(id : string): Observable<Events[]>{

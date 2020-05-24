@@ -1,5 +1,5 @@
 import { EventUpdateComponent } from './components/event/event-update/event-update.component';
-import { EvenCreateComponent } from './components/event/even-create/even-create.component';
+import { EventCreateComponent } from './components/event/event-create/event-create.component';
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -37,6 +37,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +55,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     UserUpdateComponent,
     UserDialog,
     EventDialog,
-    EvenCreateComponent,
+    EventCreateComponent,
     EventUpdateComponent
   ],
   imports: [
@@ -79,7 +82,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatTableModule,
     MatDialogModule,
     MatSortModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   entryComponents: [
     UserComponent,

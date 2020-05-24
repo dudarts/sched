@@ -6,6 +6,7 @@ using Sched.Model;
 using Sched.Data;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace Sched.Controllers
 {
@@ -41,6 +42,16 @@ namespace Sched.Controllers
                 .AsNoTracking()
                 .Where(x => x.EventTypeId == id)
                 .ToListAsync();
+            return events;
+        }
+
+        [HttpGet]
+        [Route("{ano:int}/{mes:int}/{dia:int}/{typeId:int}")]
+        public async Task<ActionResult<Event>> GetByDateAndType([FromServices] DataContext context, int ano, int mes, int dia, int typeId)
+        {
+            var events = await context.Events.Include(x => x.EventType)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Date.Day == dia && x.Date.Month == mes && x.Date.Year == ano && x.EventTypeId == typeId);
             return events;
         }
 

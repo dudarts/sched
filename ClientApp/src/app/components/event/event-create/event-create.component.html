@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-title>
+    Cadastrar Evento
+  </mat-card-title>
+  <form [formGroup]="formEvent">
+    <!-- <mat-form-field>
+          <input matInput placeholder="Digite o nome" [(ngModel)]="events.name" [formControlName]="'name'" type="text">
+      </mat-form-field> -->
+
+    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+      <mat-label>Categoria</mat-label>
+      <mat-select [(ngModel)]="events.eventTypeId" [formControlName]="'eventTypeId'" (selectionChange)="checkDate()">
+        <mat-option [value]="1">
+          <mat-icon class="v-middle">lock</mat-icon>
+          Exclusivo
+        </mat-option>
+        <mat-option [value]="2">
+          <mat-icon class="v-middle">public</mat-icon>
+          Compartilhado
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+      <mat-label>Data</mat-label>
+      <input #date matInput placeholder="E-mail do usuário" [(ngModel)]="events.date" [formControlName]="'date'"
+        type="date" (blur)="checkDate()">
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+      <mat-label>Nome</mat-label>
+      <input matInput placeholder="Digite o nome do evento" [(ngModel)]="events.name" [formControlName]="'name'"
+        type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+      <mat-label>Descrição</mat-label>
+      <input matInput placeholder="Escreva o tema ou uma rápida descrição sobre o evento"
+        [(ngModel)]="events.description" [formControlName]="'description'" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+      <mat-label>Local</mat-label>
+      <input matInput placeholder="Onde será o evento?" [(ngModel)]="events.local" [formControlName]="'local'"
+        type="email">
+    </mat-form-field>
+
+    <div class="div-mat-card-title">
+      <div class="mr-auto">
+        <button mat-raised-button [disabled]="!formEvent.valid" type="submit" color="primary" (click)="submit()">
+          Salvar
+        </button>
+      </div>
+      <button mat-raised-button (click)="cancel()" color="">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>
