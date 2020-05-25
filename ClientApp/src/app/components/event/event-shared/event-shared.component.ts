@@ -45,7 +45,9 @@ export class EventSharedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.eventService.getByType("2").subscribe(eventsShared => {
+    this.idLogin = this.auth.getId();
+
+    this.eventService.getByTypeForUser(this.idLogin, 2).subscribe(eventsShared => {
       this.eventsShared = eventsShared
       this.dataSourceShared = new MatTableDataSource(this.eventsShared);
       this.dataSourceShared.sort = this.sort;

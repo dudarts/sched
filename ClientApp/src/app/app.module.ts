@@ -1,10 +1,10 @@
+import { NgModule } from '@angular/core';
 import { EventSharedComponent, EventSharedDialog } from './components/event/event-shared/event-shared.component';
 import { EventExclusiveComponent, EventExclusiveDialog, EventExclusiveDialogIGo } from './components/event/event-exclusive/event-exclusive.component';
 import { EventUpdateComponent } from './components/event/event-update/event-update.component';
 import { EventCreateComponent } from './components/event/event-create/event-create.component';
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +22,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { MatCardModule } from '@angular/material/card';
-import { EventComponent, EventDialog } from './components/event/event.component';
+import { EventComponent } from './components/event/event.component';
 import { UserComponent, UserDialog } from './components/user/user.component';
 import { UserCreateComponent } from './components/user/user-create/user-create.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -42,6 +42,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -61,11 +62,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     EventUpdateComponent,
     EventExclusiveComponent,
     EventSharedComponent,
-    EventDialog,
     EventExclusiveDialog,
     EventSharedDialog,
     EventExclusiveDialogIGo
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -93,13 +93,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatExpansionModule
   ],
   entryComponents: [
     UserComponent,
     UserDialog,
     EventComponent,
-    EventDialog,
     EventSharedComponent,
     EventExclusiveComponent,
     EventExclusiveDialog,

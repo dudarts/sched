@@ -49,14 +49,26 @@
                                         <strong>ID: </strong>{{ element.id }}
                                     </div>
                                     <div class="flex-1 v-middle">
-                                        <mat-slide-toggle color="primary" (change)="slideIGo ? confirmIGo(element.id) : ''" [(ngModel)]="slideIGo">
-                                            Participar
-                                        </mat-slide-toggle>
+                                        <mat-slide-toggle color="primary"
+                                        [(ngModel)]="getIdLogin() == element.userId"                                        
+                                        (change)="confirmIGo(element.id)">                                       
+                                       
+                                        <div *ngIf="getIdLogin() != element.userId; then ok else vixe"></div>
+                                            
+                                            <ng-template #ok>
+                                                <span>Eu vou</span>
+                                            </ng-template>
+                                            
+                                            <ng-template #vixe>
+                                                <span>Desistir</span>
+                                            </ng-template>
+                                    </mat-slide-toggle>                                       
                                     </div>
                                     <div class="flex-1 flex-end pointer v-middle">
                                         <a mat-button color="primary">
                                             <small>
-                                                <mat-icon class="pointer v-middle" title="Adicionar usuários a este evento">
+                                                <mat-icon class="pointer v-middle"
+                                                    title="Adicionar usuários a este evento">
                                                     group_add
                                                 </mat-icon>
                                                 <span>Convidar amigos</span>

@@ -26,10 +26,11 @@ namespace Sched.Controllers
         [Route("userId/{userId:int}/eventId/{eventId:int}")]
         public async Task<ActionResult<UsersEvents>> Get([FromServices] DataContext context, int userId, int eventId)
         {
-            var usersEvents = await context.UsersEvents
+            var usersEvents = await context.UsersEvents               
+                //.Include(x => x.User)
+                //.Include(x => x.Event)
                 .AsNoTracking()
-                .Include(x => x.User)
-                .Include(x => x.Event).FirstOrDefaultAsync(x => x.UserId == userId && x.EventId == eventId);
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.EventId == eventId);
             return usersEvents;
         }
 

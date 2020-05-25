@@ -18,6 +18,9 @@ const routes: Routes = [
     path: "login", component: LoginComponent
   },
   {
+    path: "home", redirectTo: 'home/event', pathMatch: 'full'
+  },
+  {
     path: "home", component: HomeComponent,
     children: [
       {

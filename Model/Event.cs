@@ -27,5 +27,7 @@ namespace Sched.Model{
         public int EventTypeId { get; set; }
 
         public EventType EventType { get; set; }
+        
+        public int? UserId { get; set; }
     }
 }

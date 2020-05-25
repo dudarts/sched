@@ -40,8 +40,8 @@ export class EventsService {
     return this.http.get<Events>(`http://localhost:5000/api/event/${ano}/${mes}/${dia}/${typeId}`);
   }
 
-  getByType(id: string): Observable<Events[]> {
-    return this.http.get<Events[]>(`http://localhost:5000/api/event/eventtype/${id}`);
+  getByTypeForUser(userId: any, eventId: any): Observable<Events[]> {
+    return this.http.get<Events[]>(`http://localhost:5000/api/event/eventTypeId/${eventId}/userId/${userId}`);
   }
 
   update(event: Events): Observable<Events> {
@@ -51,6 +51,15 @@ export class EventsService {
   delete(id: string): Observable<Events> {
     return this.http.delete<Events>(`http://localhost:5000/api/event/${id}`);
   }
+  
+  getByDateNow(op: any): Observable<Events[]> {
+    return this.http.get<Events[]>(`http://localhost:5000/api/event/now/${op}`);
+  }
+
+
+
+
+
 
   // métodos esclusivos para a tabela UserEvent.
   getUserEvent(userId: any, eventId: any): Observable<UserEvent> {
@@ -61,7 +70,7 @@ export class EventsService {
     return this.http.post<UserEvent>("http://localhost:5000/api/UsersEvents", userEvent);
   }
 
-  deleteUserEvent(userId: string, eventId: string): Observable<UserEvent> {
+  deleteUserEvent(userId: any, eventId: any): Observable<UserEvent> {
     return this.http.delete<UserEvent>(`http://localhost:5000/api/UsersEvents/userId/${userId}/eventId/${eventId}`);
   }
 

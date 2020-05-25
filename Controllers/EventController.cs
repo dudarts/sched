@@ -34,16 +34,26 @@ namespace Sched.Controllers
         }
 
         [HttpGet]
-        [Route("EventType/{id:int}")]
-        public async Task<ActionResult<List<Event>>> GetByEventType([FromServices] DataContext context, int id)
+        [Route("eventTypeId/{eventTypeId:int}/userId/{userId:int}")]
+        public async Task<ActionResult<dynamic>> GetByEventTypeAndUserLogin([FromServices] DataContext context, 
+        int userId, int eventTypeId)
         {
-            var events = await context.Events
-                .Include(x => x.EventType)
-                .Include(x => x.UserEvents)
-                .AsNoTracking()
-                .Where(x => x.EventTypeId == id)
-                
-                .ToListAsync();
+            var events = await (from e in context.Events.Where(p => p.EventTypeId == eventTypeId)
+                                from u in context.UsersEvents
+                                .Where(p => e.Id == p.EventId)
+                                 .Where(p => p.UserId == userId).DefaultIfEmpty()
+
+                                select new
+                                {
+                                    e.Id,
+                                    e.Name,
+                                    e.Description,
+                                    e.Date,
+                                    e.Local,
+                                    e.EventTypeId,
+                                    e.EventType,
+                                    u.UserId
+                                }).ToListAsync();
             return events;
         }
 
@@ -57,6 +67,38 @@ namespace Sched.Controllers
             return events;
         }
 
+        [HttpGet]
+        [Route("new/{op}")]
+        public async Task<ActionResult<List<Event>>> GetByDateNow([FromServices] DataContext context, int op)
+        {
+            if (op == 0){
+                
+                var events = await context.Events.Include(x => x.EventType)
+                .AsNoTracking()
+                .Where(x => x.Date.Date == DateTime.Now.Date &&
+                x.Date.Month == DateTime.Now.Month &&
+                x.Date.Year == DateTime.Now.Year )
+                .ToListAsync();
+                return events;
+
+            } else {
+
+                //string dateString = ano + "-" + mes + "-" + dia;
+                // var events = await context.Events.Include(x => x.EventType)
+                // .AsNoTracking()
+                // .Where(x => x.Date > DateTime.Parse(dateString))
+                // .ToListAsync();
+                // return events;
+                var events = await context.Events.Include(x => x.EventType)
+                .AsNoTracking()
+                .Where(x => x.Date > DateTime.Now)
+                .ToListAsync();
+                return events;
+
+            }
+            
+        }
+
         // [HttpGet]
         // [Route("{name}")]
         // public async Task<ActionResult<List<Event>>> GetByName([FromServices] DataContext context, string name)
@@ -68,18 +110,18 @@ namespace Sched.Controllers
         //         .ToListAsync();
         //     return events;
         // }
- 
+
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Event>> Post([FromServices] DataContext context, [FromBody]Event model)
+        public async Task<ActionResult<Event>> Post([FromServices] DataContext context, [FromBody] Event model)
         {
             if (ModelState.IsValid)
             {
                 context.Events.Add(model);
                 await context.SaveChangesAsync();
                 return model;
-            } 
-            else 
+            }
+            else
             {
                 return BadRequest(ModelState);
             }
@@ -90,9 +132,9 @@ namespace Sched.Controllers
         public async Task<ActionResult<Event>> Put([FromServices] DataContext context, [FromBody] Event model)
         {
             if (ModelState.IsValid)
-            {               
+            {
                 //model.Password = model.Password.GetHashCode().ToString();
-                
+
                 context.Events.Update(model);
                 await context.SaveChangesAsync();
                 return model;
@@ -108,7 +150,7 @@ namespace Sched.Controllers
         public async Task<ActionResult<Event>> Delete([FromServices] DataContext context, int id)
         {
             if (ModelState.IsValid)
-            {                              
+            {
                 var events = await context.Events
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
