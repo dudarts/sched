@@ -20,6 +20,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-detail {
     overflow: hidden;
+    background-color: #F5F5F5;
+    
     /* display: flex; */
 }
 
@@ -142,4 +144,26 @@ mat-form-field {
 
 .mr-10 {
     margin-right: 10px;
+}
+
+.now {
+    padding: 3px 5px;
+    background-color: ;
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 10px;
+    float: right;
+}
+
+.small {
+    font-size: 15px;
+    color: #28629B;
+}
+
+.cursor {
+    cursor: default;
+}
+
+.big{
+    font-size: 1.5rem;
 }

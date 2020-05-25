@@ -72,7 +72,7 @@ export class EventCreateComponent implements OnInit {
 
         this.userEvent.userId = +userId;
         this.userEvent.eventId = eventId;
-        
+
         this.eventService.saveUserInEvent(this.userEvent)
           .toPromise().then()
           .catch((e: HttpErrorResponse) => {
@@ -97,30 +97,34 @@ export class EventCreateComponent implements OnInit {
   @ViewChild('date') dateField: ElementRef;
 
   checkDate() {
-    let dateForm = this.events.date.toString();
-    let dateParts = dateForm.split('-');
-    let typeId = this.events.eventTypeId;
-    const dateYear = dateParts[0];
-    const dateMonth = dateParts[1];
-    const dateDay = dateParts[2];
+    let typeId = +this.events.eventTypeId;
+    //this.eventService.showMessage(typeId.toString());
+    if (typeId == 1) {
+      let dateForm = this.events.date.toString();
+      let dateParts = dateForm.split('-');
 
-    //this.eventService.showMessage(`Data: ${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`);
-    this.eventService.getByDateAndType(dateYear, dateMonth, dateDay, typeId.toString()).subscribe(
-      (e) => {
-        if (e.id != null) {
-          this.events.date = null;
-          this.dateField.nativeElement.focus();
-          this.eventService.showMessage(`O Evento: ${e.name} já está exclusivo para esta data.`);
-          console.log(e)
+      const dateYear = dateParts[0];
+      const dateMonth = dateParts[1];
+      const dateDay = dateParts[2];
+
+      //this.eventService.showMessage(`Data: ${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`);
+      this.eventService.getByDateAndType(dateYear, dateMonth, dateDay, typeId.toString()).subscribe(
+        (e) => {
+          if (e.id != null) {
+            this.events.date = null;
+            this.dateField.nativeElement.focus();
+            this.eventService.showMessage(`O Evento: ${e.name} já está exclusivo para esta data.`);
+            console.log(e)
+          }
+          //this.router.navigate(['/home/event'])
+        },
+        (error: any) => {
+          this.formEvent.valid
+          this.eventService.showMessage("Deu zica");
+          console.error('Observer got an error: ' + error);
         }
-        //this.router.navigate(['/home/event'])
-      },
-      (error: any) => {
-        this.formEvent.valid
-        this.eventService.showMessage("Deu zica");
-        console.error('Observer got an error: ' + error);
-      }
-    )
+      )
+    }
   }
 
 

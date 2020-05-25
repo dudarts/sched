@@ -25,13 +25,14 @@ export class EventSharedComponent implements OnInit {
 
   eventsShared: Events[];
   displayedColumnsShared: string[] = ['name', 'date', 'action'];
-  dataSourceExclusive = new MatTableDataSource();
   dataSourceShared = new MatTableDataSource();
   expandedElement: Events | null;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   arrow: Events | null;
   usersEvent: UserEvent;
-  idLogin
+  idLogin: any;
+  slideIGo: boolean;
+
 
   constructor(private router: Router,
     private eventService: EventsService,
@@ -60,6 +61,7 @@ export class EventSharedComponent implements OnInit {
       this.idLogin = this.auth.getId();
   }
 
+  
   toEventCreate(): void {
     this.router.navigate(['/home/event/create'])
   }
@@ -74,12 +76,20 @@ export class EventSharedComponent implements OnInit {
       return this.usersEvent
   }
 
-  private getIdLogin(){
+  getIdLogin(){
     return this.auth.getId();
   }
 
   private getNameLogin(){
     return this.auth.getName;
+  }
+
+  eventExpiration(date: Date) {
+    const now = new Date();
+    const DBdate = new Date(date);
+    const result = (DBdate.getDate() == now.getDate() && DBdate.getMonth() == now.getMonth() && DBdate.getFullYear() == now.getFullYear())
+    console.log(date + ": " + result)
+    return result;
   }
 
   confirmDelete(id: any) {
@@ -101,6 +111,44 @@ export class EventSharedComponent implements OnInit {
         this.eventService.showMessage("Ação cancelada")
       }
     });
+  }
+
+  
+  confirmIGo(id: any, go: any) {
+    //const dialogRef = this.dialog.open(EventExclusiveDialog);
+    if (go.checked) {
+      this.eventService.getUserEvent(this.idLogin, id).subscribe(
+        (e) => {
+          this.usersEvent = e;
+          //console.log("Add: " + this.usersEvent)
+          if (this.usersEvent == null) {
+            this.usersEvent = {
+              userId: +this.idLogin,
+              eventId: +id
+            }
+            //console.log(this.usersEvent)
+            this.eventService.saveUserInEvent(this.usersEvent).subscribe(
+              () => {
+                //console.log(this.usersEvent)
+                this.eventService.showMessage("Adicionado ao Evento")
+                //this.ngOnInit();
+              }
+            )
+          }
+        }
+      )
+
+      //this.eventService.showMessage("Eu vou")
+    } else {
+      this.eventService.deleteUserEvent(this.idLogin, id).subscribe(
+        () => {
+          //console.log(this.usersEvent)
+          this.eventService.showMessage("\"Num\" vai não!!!")
+          //this.ngOnInit();
+        }
+      )
+
+    }
   }
 
 }

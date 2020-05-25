@@ -32,7 +32,7 @@ export class EventExclusiveComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   arrow: Events | null;
   usersEvent: UserEvent;
-  idLogin;
+  idLogin : any;
   slideIGo: boolean;
   isChecked: boolean;
 
@@ -82,6 +82,14 @@ export class EventExclusiveComponent implements OnInit {
 
   private getNameLogin() {
     return this.auth.getName;
+  }
+
+  eventExpiration(date: Date) {
+    const now = new Date();
+    const DBdate = new Date(date);
+    const result = (DBdate.getDate() == now.getDate() && DBdate.getMonth() == now.getMonth() && DBdate.getFullYear() == now.getFullYear())
+    console.log(date + ": " + result)
+    return result;
   }
 
   confirmDelete(id: any) {

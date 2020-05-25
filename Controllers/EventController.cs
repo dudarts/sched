@@ -35,26 +35,54 @@ namespace Sched.Controllers
 
         [HttpGet]
         [Route("eventTypeId/{eventTypeId:int}/userId/{userId:int}")]
-        public async Task<ActionResult<dynamic>> GetByEventTypeAndUserLogin([FromServices] DataContext context, 
-        int userId, int eventTypeId)
+        public async Task<ActionResult<dynamic>> GetByEventTypeAndUserLogin([FromServices] DataContext context,
+        int userId, int eventTypeId, bool expiration = true)
         {
-            var events = await (from e in context.Events.Where(p => p.EventTypeId == eventTypeId)
-                                from u in context.UsersEvents
-                                .Where(p => e.Id == p.EventId)
-                                 .Where(p => p.UserId == userId).DefaultIfEmpty()
 
-                                select new
-                                {
-                                    e.Id,
-                                    e.Name,
-                                    e.Description,
-                                    e.Date,
-                                    e.Local,
-                                    e.EventTypeId,
-                                    e.EventType,
-                                    u.UserId
-                                }).ToListAsync();
-            return events;
+            if (expiration)
+            {
+                var events = await (from e in context.Events
+                                    .Where(p => p.EventTypeId == eventTypeId)
+                                    .Where(p => p.Date >= DateTime.Today)
+                                    from u in context.UsersEvents
+                                    .Where(p => e.Id == p.EventId)
+                                    .Where(p => p.UserId == userId).DefaultIfEmpty()
+
+                                    select new
+                                    {
+                                        e.Id,
+                                        e.Name,
+                                        e.Description,
+                                        e.Date,
+                                        e.Local,
+                                        e.EventTypeId,
+                                        e.EventType,
+                                        u.UserId
+                                    }).ToListAsync();
+                return events;
+            }
+            else
+            {
+                var events = await (from e in context.Events.Where(p => p.EventTypeId == eventTypeId)
+                                    from u in context.UsersEvents
+                                    .Where(p => e.Id == p.EventId)
+                                    .Where(p => p.UserId == userId).DefaultIfEmpty()
+                                    
+                                    select new
+                                    {
+                                        e.Id,
+                                        e.Name,
+                                        e.Description,
+                                        e.Date,
+                                        e.Local,
+                                        e.EventTypeId,
+                                        e.EventType,
+                                        u.UserId
+                                    }).ToListAsync();
+                return events;
+            }
+
+
         }
 
         [HttpGet]
@@ -71,17 +99,20 @@ namespace Sched.Controllers
         [Route("new/{op}")]
         public async Task<ActionResult<List<Event>>> GetByDateNow([FromServices] DataContext context, int op)
         {
-            if (op == 0){
-                
+            if (op == 0)
+            {
+
                 var events = await context.Events.Include(x => x.EventType)
                 .AsNoTracking()
                 .Where(x => x.Date.Date == DateTime.Now.Date &&
                 x.Date.Month == DateTime.Now.Month &&
-                x.Date.Year == DateTime.Now.Year )
+                x.Date.Year == DateTime.Now.Year)
                 .ToListAsync();
                 return events;
 
-            } else {
+            }
+            else
+            {
 
                 //string dateString = ano + "-" + mes + "-" + dia;
                 // var events = await context.Events.Include(x => x.EventType)
@@ -96,7 +127,7 @@ namespace Sched.Controllers
                 return events;
 
             }
-            
+
         }
 
         // [HttpGet]

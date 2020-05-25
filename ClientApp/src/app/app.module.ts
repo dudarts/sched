@@ -43,6 +43,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @NgModule({
@@ -65,7 +66,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     EventExclusiveDialog,
     EventSharedDialog,
     EventExclusiveDialogIGo
-    ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -94,7 +95,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
   ],
   entryComponents: [
     UserComponent,
