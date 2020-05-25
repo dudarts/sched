@@ -105,32 +105,41 @@ export class EventExclusiveComponent implements OnInit {
     });
   }
 
-  confirmIGo(id: any) {
-    const dialogRef = this.dialog.open(EventExclusiveDialog);
-    console.log("Add: " + this.isChecked)
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.eventService.getUserEvent(this.idLogin, id).subscribe(
-          (e) => {
-            this.usersEvent = e;
-            console.log("Add: " + this.usersEvent)
-            if (this.usersEvent == null) {
-              this.usersEvent = { userId: +this.idLogin, eventId: +id }
-              console.log(this.usersEvent)
-              this.eventService.saveUserInEvent(this.usersEvent).subscribe(
-                () => {
-                  //console.log(this.usersEvent)
-                  this.eventService.showMessage("Adicionado ao Evento")
-                  this.ngOnInit();
-                }
-              )
+  confirmIGo(id: any, go: any) {
+    //const dialogRef = this.dialog.open(EventExclusiveDialog);
+    if (go.checked) {
+      this.eventService.getUserEvent(this.idLogin, id).subscribe(
+        (e) => {
+          this.usersEvent = e;
+          //console.log("Add: " + this.usersEvent)
+          if (this.usersEvent == null) {
+            this.usersEvent = {
+              userId: +this.idLogin,
+              eventId: +id
             }
+            //console.log(this.usersEvent)
+            this.eventService.saveUserInEvent(this.usersEvent).subscribe(
+              () => {
+                //console.log(this.usersEvent)
+                this.eventService.showMessage("Adicionado ao Evento")
+                //this.ngOnInit();
+              }
+            )
           }
-        )
-      } else {   
-        this.eventService.showMessage("\"Num\" vai não!")
-      }
-    });
+        }
+      )
+
+      //this.eventService.showMessage("Eu vou")
+    } else {
+      this.eventService.deleteUserEvent(this.idLogin, id).subscribe(
+        () => {
+          //console.log(this.usersEvent)
+          this.eventService.showMessage("\"Num\" vai não!!!")
+          //this.ngOnInit();
+        }
+      )
+
+    }
   }
 
   // confirmIExit(id: any) {
@@ -143,7 +152,7 @@ export class EventExclusiveComponent implements OnInit {
   //           this.usersEvent = e;
   //           console.log("Exit: " + this.usersEvent)
   //           if (this.usersEvent != null) {
-              
+
   //             this.eventService.deleteUserEvent(this.idLogin, id).subscribe(
   //               () => {
   //                 //console.log(this.usersEvent)
