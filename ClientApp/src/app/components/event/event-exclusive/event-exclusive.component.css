@@ -121,3 +121,16 @@ mat-form-field {
 .block {
     display: block;
 }
+
+.flex {
+    display: flex;  
+}
+
+.flex-1{
+    flex: 1;
+}
+
+.flex-end {
+    justify-content: flex-end;
+    text-align: right;
+}

@@ -1,5 +1,5 @@
 import { EventSharedComponent, EventSharedDialog } from './components/event/event-shared/event-shared.component';
-import { EventExclusiveComponent, EventExclusiveDialog } from './components/event/event-exclusive/event-exclusive.component';
+import { EventExclusiveComponent, EventExclusiveDialog, EventExclusiveDialogIGo } from './components/event/event-exclusive/event-exclusive.component';
 import { EventUpdateComponent } from './components/event/event-update/event-update.component';
 import { EventCreateComponent } from './components/event/event-create/event-create.component';
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
@@ -63,7 +63,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     EventSharedComponent,
     EventDialog,
     EventExclusiveDialog,
-    EventSharedDialog
+    EventSharedDialog,
+    EventExclusiveDialogIGo
   ],
   imports: [
     BrowserModule,
@@ -102,7 +103,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     EventSharedComponent,
     EventExclusiveComponent,
     EventExclusiveDialog,
-    EventSharedDialog
+    EventSharedDialog,
+    EventExclusiveDialogIGo
   ],
   providers: [[{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]],
   bootstrap: [AppComponent]

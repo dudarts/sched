@@ -39,8 +39,10 @@ namespace Sched.Controllers
         {
             var events = await context.Events
                 .Include(x => x.EventType)
+                .Include(x => x.UserEvents)
                 .AsNoTracking()
                 .Where(x => x.EventTypeId == id)
+                
                 .ToListAsync();
             return events;
         }

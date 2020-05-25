@@ -32,7 +32,8 @@ export class EventExclusiveComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   arrow: Events | null;
   usersEvent: UserEvent;
-  idLogin
+  idLogin;
+  slideIGo = false;
 
   constructor(private router: Router,
     private eventService: EventsService,
@@ -57,7 +58,7 @@ export class EventExclusiveComponent implements OnInit {
         console.error('Observer got an error: ' + error);
       }
 
-      this.idLogin = this.auth.getId();
+    this.idLogin = this.auth.getId();
   }
 
   toEventCreate(): void {
@@ -65,20 +66,20 @@ export class EventExclusiveComponent implements OnInit {
   }
 
 
-  getUserInEvent(userId: any, eventId: any) : UserEvent {
+  getUserInEvent(userId: any, eventId: any): UserEvent {
     this.eventService.getUserEvent(userId, eventId).subscribe(
       (userEvent) => {
-        this.usersEvent = userEvent        
+        this.usersEvent = userEvent
       })
 
-      return this.usersEvent
+    return this.usersEvent
   }
 
-  private getIdLogin(){
+  private getIdLogin() {
     return this.auth.getId();
   }
 
-  private getNameLogin(){
+  private getNameLogin() {
     return this.auth.getName;
   }
 
@@ -102,6 +103,52 @@ export class EventExclusiveComponent implements OnInit {
       }
     });
   }
+
+  confirmIGo(id: any) {
+    const dialogRef = this.dialog.open(EventExclusiveDialogIGo);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.slideIGo) {
+        this.eventService.getUserEvent(this.idLogin, id).subscribe(
+          (e) => {
+            this.usersEvent = e;
+            //this.eventService.showMessage("01")
+            if (this.usersEvent == null) {
+              this.usersEvent = { userId: +this.idLogin, eventId: +id }
+              //this.usersEvent.eventId = +id;
+              //this.usersEvent.userId = +this.idLogin;
+              //this.eventService.showMessage("02")
+              console.log(this.usersEvent)
+              this.eventService.saveUserInEvent(this.usersEvent).subscribe(
+                () => {
+                  //console.log(this.usersEvent)
+                  this.eventService.showMessage("Adicionado ao Evento")
+                  this.router.navigate(['/home/event'])
+                }
+              )
+            }
+          }
+        )
+
+        // this.eventService.delete(id).subscribe(
+        // () => {
+        //this.eventService.showMessage(`Eu vou sim. ID: ${id}`)
+        // this.ngOnInit()
+        //   },
+        //   (error: any) => {
+        //     this.eventService.showMessage("Deu zica");
+        //     console.error('Erro: ' + error);
+        //   }
+        // )
+      } else {
+        this.slideIGo = false;
+        this.eventService.showMessage("\"Num\" vai não!")
+      }
+    });
+  }
+
+
+
 }
 
 @Component({
@@ -111,3 +158,12 @@ export class EventExclusiveComponent implements OnInit {
 })
 
 export class EventExclusiveDialog { }
+
+
+@Component({
+  selector: 'event-exclusive-dialog-IGo',
+  templateUrl: 'event-exclusive-dialog-IGo.html',
+  styleUrls: ['./event-exclusive.component.css']
+})
+
+export class EventExclusiveDialogIGo { }
