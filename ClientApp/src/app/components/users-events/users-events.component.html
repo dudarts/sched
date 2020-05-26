@@ -1,0 +1,73 @@
+<mat-card class="container">
+  <mat-card-title>
+    <div class="div-mat-card-title">
+      <div class="mr-auto">
+        <small>Evento:</small>
+        <strong>{{ getNameEvent() }}</strong>
+      </div>
+      <button mat-raised-button (click)="saveSelecion()" color=primary>
+        Adicionar os selecionados
+      </button>
+    </div>
+  </mat-card-title>
+
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Filtrar</mat-label>
+      <input class="input-filter" matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+    <div class="table-container">
+      <table matSort mat-table multiTemplateDataRows [dataSource]="dataSource" class="mat-elevation-z8"
+        matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox color="primary" (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox color="primary" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+        </tr>
+      </table>
+    </div>
+  </mat-card-content>
+  <mat-card-actions style="text-align: right;">
+    
+
+    <div class="div-mat-card-title">
+      <div class="mr-auto"></div>
+      <button mat-raised-button (click)="saveSelecion()" color=primary>
+        Adicionar os selecionados
+      </button>
+    </div>
+
+
+  </mat-card-actions>
+</mat-card>

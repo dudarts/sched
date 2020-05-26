@@ -1,14 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { UserService } from './../../user/user.service';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Events } from '../event.model';
 import { UserEvent } from '../userEvent.model';
 import { EventsService } from '../event.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { User } from '../../user/user.model';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-event-exclusive',
@@ -32,14 +35,16 @@ export class EventExclusiveComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   arrow: Events | null;
   usersEvent: UserEvent;
-  idLogin : any;
+  idLogin: any;
   slideIGo: boolean;
   isChecked: boolean;
+
 
   constructor(private router: Router,
     private eventService: EventsService,
     private dialog: MatDialog,
-    private auth: AuthService
+    private auth: AuthService,
+    private userService: UserService
   ) { }
 
   applyFilterExclusive(event: Event) {
@@ -150,34 +155,42 @@ export class EventExclusiveComponent implements OnInit {
     }
   }
 
-  // confirmIExit(id: any) {
-  //   const dialogRef = this.dialog.open(EventExclusiveDialogIGo);
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       this.eventService.getUserEvent(this.idLogin, id).subscribe(
-  //         (e) => {
-  //           this.usersEvent = e;
-  //           console.log("Exit: " + this.usersEvent)
-  //           if (this.usersEvent != null) {
-
-  //             this.eventService.deleteUserEvent(this.idLogin, id).subscribe(
-  //               () => {
-  //                 //console.log(this.usersEvent)
-  //                 this.eventService.showMessage("Você saiu do evento ao Evento")
-  //                 this.ngOnInit();
-  //               }
-  //             )
-  //           }
-  //         }
-  //       )
-  //     } else {   
-  //       this.eventService.showMessage("\"Num\" vai não!")
-  //     }
-  //   });
-  // }
+  redirectByEvent(eventId: any){
+    this.router.navigate([`/home/event/users/${eventId}`])
+  }
+  
+  confirmIAddUsers() {
+    const dialogRef = this.dialog.open(EventDialogAddUsers, {
+      data: {
+        event: 'Copa de Gude',
+      }
+    });
 
 
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.eventService.getUserEvent(this.idLogin, id).subscribe(
+    //       (e) => {
+    //         this.usersEvent = e;
+    //         console.log("Exit: " + this.usersEvent)
+    //         if (this.usersEvent != null) {
+
+    //           this.eventService.deleteUserEvent(this.idLogin, id).subscribe(
+    //             () => {
+    //               //console.log(this.usersEvent)
+    //               this.eventService.showMessage("Você saiu do evento ao Evento")
+    //               this.ngOnInit();
+    //             }
+    //           )
+    //         }
+    //       }
+    //     )
+    //   } else {   
+    //     this.eventService.showMessage("\"Num\" vai não!")
+    //   }
+    // });
+  }
 
 }
 
@@ -186,14 +199,15 @@ export class EventExclusiveComponent implements OnInit {
   templateUrl: 'event-exclusive-dialog-delete.html',
   styleUrls: ['./event-exclusive.component.css']
 })
-
 export class EventExclusiveDialog { }
 
 
 @Component({
-  selector: 'event-exclusive-dialog-IGo',
-  templateUrl: 'event-exclusive-dialog-IGo.html',
+  selector: 'event-dialog-add-users',
+  templateUrl: 'event-dialog-add-users.html',
   styleUrls: ['./event-exclusive.component.css']
 })
 
-export class EventExclusiveDialogIGo { }
+export class EventDialogAddUsers {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+}

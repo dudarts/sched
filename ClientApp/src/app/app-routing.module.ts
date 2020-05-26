@@ -1,7 +1,8 @@
+import { NgModule } from '@angular/core';
+import { UsersEventsComponent } from './components/users-events/users-events.component';
 import { EventUpdateComponent } from './components/event/event-update/event-update.component';
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
 import { LoginComponent } from './components/login/login.component';
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
@@ -40,6 +41,9 @@ const routes: Routes = [
       },
       {
         path: "event/update/:id", component: EventUpdateComponent
+      },
+      {
+        path: "event/users/:id", component: UsersEventsComponent
       }
     ]
   }

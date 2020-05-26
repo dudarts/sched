@@ -1,3 +1,4 @@
+import { EventExclusiveComponent } from './../event-exclusive/event-exclusive.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Events } from '../event.model';
 import { MatTableDataSource } from '@angular/material/table';
@@ -156,7 +157,7 @@ export class EventSharedComponent implements OnInit {
 
 @Component({
   selector: 'event-shared-dialog-delete',
-  templateUrl: 'event-shared-dialog-delete.html',
+  templateUrl: '../event-exclusive/event-exclusive-dialog-delete.html',
   styleUrls: ['./event-shared.component.css']
 })
 
