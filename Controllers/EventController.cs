@@ -67,7 +67,7 @@ namespace Sched.Controllers
                                     from u in context.UsersEvents
                                     .Where(p => e.Id == p.EventId)
                                     .Where(p => p.UserId == userId).DefaultIfEmpty()
-                                    
+
                                     select new
                                     {
                                         e.Id,
@@ -82,6 +82,27 @@ namespace Sched.Controllers
                 return events;
             }
 
+
+        }
+
+        [HttpGet]
+        [Route("{eventId:int}/users")]
+        public async Task<ActionResult<dynamic>> GetByUserInOneEvent([FromServices] DataContext context,
+        int eventId)
+        {
+            var usersInEvent = await (from u in context.Users                      
+                                from e in context.UsersEvents
+                                .Where(p => u.Id == p.UserId)
+                                .Where(p => p.EventId == eventId).DefaultIfEmpty()
+
+                                select new
+                                {
+                                    u.Id,
+                                    u.Name,
+                                    u.Email,                                    
+                                    e.EventId
+                                }).ToListAsync();
+            return usersInEvent;
 
         }
 

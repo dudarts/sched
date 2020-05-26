@@ -16,7 +16,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class UsersEventsComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'id', 'name', 'email'];
+  displayedColumns: string[] = ['select', 'name', 'email'];
   dataSource = new MatTableDataSource<User>();;
   selection = new SelectionModel<User>(true, []);
   users: User[];
@@ -24,6 +24,7 @@ export class UsersEventsComponent implements OnInit {
   event: Events
   userEvent: UserEvent
   idEvent: any
+  nameEvent: string
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -44,44 +45,80 @@ export class UsersEventsComponent implements OnInit {
           this.eventService.showMessage("Evento não identificado")
           this.router.navigate(["/home/event"])
           this.event = e
+          this.nameEvent = this.event.name
+          console.log(this.idEvent)
         }
       })
 
-    this.userService.getAll().subscribe((users) => {
-      this.users = users
-      this.dataSource = new MatTableDataSource(this.users)
+    this.eventService.getByUserInOneEvent(this.idEvent).subscribe((users) => {
+      this.dataSource = new MatTableDataSource(users)
       this.dataSource.sort = this.sort
     }
     );
+
+    console.log(this.dataSource)
   }
 
-
-  getNameEvent() {
-    console.log(this.event)
+  getIdEvent() {
+    return this.idEvent
   }
 
-  saveSelecion() {
-    //console.log(this.selection)
-    //console.log(this.selection['_selected']['length'])
-    if (this.selection['_selected']['length'] == 0) {
-      this.userService.showMessage("Selecione alguém")
-    } else {
-      this.selection['_selected'].forEach(element => {
-        this.userService.showMessage(element.id)
-        this.userEvent.userId = element.id
-        this.userEvent.eventId = this.idEvent
-
-        this.eventService.saveUserInEvent(this.userEvent).subscribe(
-          () => {
-            
-          })
-      });
-      this.userService.showMessage("Pessoas adicionadas com sucesso")
-      this.router.navigate(['/home/events'])
+  saveIndividal(id: any) {
+    console.log(id)
+    this.userEvent = {
+      userId: id,
+      eventId: +this.idEvent
     }
 
-
+    this.eventService.getUserEvent(id, this.idEvent).subscribe(
+      (e) => {
+        if (e != null) {
+          this.eventService.deleteUserEvent(id, this.idEvent).subscribe(
+            () => {
+              this.userService.showMessage("Saiu")
+            }),
+            (error: Error) => (
+              console.error("Erro: " + error)
+            )
+        } else {
+          this.eventService.saveUserInEvent(this.userEvent).subscribe(
+            () => {
+              this.userService.showMessage("Salvo")
+            }),
+            (error: Error) => (
+              console.error("Erro: " + error)
+            )
+        }
+      }
+    )
   }
+
+  // saveSelecion() {
+  //   //console.log(this.selection)
+  //   console.log(this.selection['_selected'])
+  //   if (this.selection['_selected']['length'] > 0) {
+  //     this.selection['_selected'].forEach(
+  //       (element) => {
+  //         console.log(element.id)
+  //         this.saveIndividal(+element.id)
+  //       });
+  //     this.userService.showMessage("Pessoas adicionadas com sucesso")
+  //     this.ngOnInit()
+  //   } else {
+  //     this.userService.showMessage("Selecione alguém")
+  //   }
+  // }
+
+  // isOnTheList(id: any){
+  //   this.eventService.getUserEvent(id, this.idEvent).subscribe(
+  //     (e) => {
+  //       return e != null
+  //     } 
+  //   ),
+  //   (() => {
+  //     return false
+  //   })
+  // }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {

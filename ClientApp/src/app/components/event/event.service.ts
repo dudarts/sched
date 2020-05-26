@@ -56,6 +56,10 @@ export class EventsService {
     return this.http.get<Events[]>(`http://localhost:5000/api/event/now/${op}`);
   }
 
+  getByUserInOneEvent(eventId: any): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:5000/api/event/${eventId}/users`);
+  }
+
 
 
 
