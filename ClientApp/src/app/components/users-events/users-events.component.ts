@@ -43,10 +43,10 @@ export class UsersEventsComponent implements OnInit {
       (e) => {
         if (e == null) {
           this.eventService.showMessage("Evento não identificado")
-          this.router.navigate(["/home/event"])
+          this.router.navigate(["/home/event"])         
+        } else {
           this.event = e
           this.nameEvent = this.event.name
-          console.log(this.idEvent)
         }
       })
 
